@@ -1,11 +1,26 @@
+//modules
+const express = require('express');
+const path = require('path');
+const session = require('express-session');
 
-const express = require('express'), path = require('path'), fs = require('fs'), mysql = require('mysql'), cors = require('cors'), sha1 = require('sha1'), config = require('./config'), moment = require('moment');
-let app = express(),
-    session = require('express-session'),
-    pool = mysql.createPool(config.pool);
+//server data
+const port = require('./config').port,
+      appconfig = require('./config').config;
 
+//controllers
+const userController = require('./controllers/userController'),
+      stepController = require('./controllers/stepController'),
+      appController = require('./controllers/appController')
 
+let app = express();
 
+app.use(session({secret:'secret',resave:true,saveUninitialized:true}));
+app.use(express.urlencoded({extended:true}));
+app.use('/js', express.static(path.join(__dirname, './web/js/')))
+app.use('/bootstrap', express.static(path.join(__dirname, './node_modules/bootstrap/dist')))
+app.use('/assets', express.static(path.join(__dirname, './assets/')))
+app.use('/users', userController);
+app.use('/stepdatas', stepController);
+app.use('/', appController);
 
-
-app.listen(config.port, console.log('listening on http://localhost:8080'));
+app.listen(port, console.log('listening on http://localhost:'+port));
