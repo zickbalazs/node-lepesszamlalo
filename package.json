@@ -1,0 +1,35 @@
+{
+  "name": "lepesszamlalo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zickbalazs/node-lepesszamlalo.git"
+  },
+  "author": "ZB",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zickbalazs/node-lepesszamlalo/issues"
+  },
+  "homepage": "https://github.com/zickbalazs/node-lepesszamlalo#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "fs": "0.0.1-security",
+    "moment": "^2.29.4",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
