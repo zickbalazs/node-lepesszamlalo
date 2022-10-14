@@ -1,0 +1,23 @@
+<%- include ('../partials/header') %> 
+<form class="my-5 m-auto w-75">
+    <h3 class="mb-3">Regisztráció</h3>
+    <div class="mb-3">
+        <label for="username" class="form-label">Felhasználónév</label>
+        <input type="text" name="username" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email cím</label>
+        <input type="email" name="" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="passwd" class="form-label">Jelszó</label>
+        <input type="password" name="passwd" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="passwd2" class="form-label">Jelszó még egyszer</label>
+        <input type="password" name="passwd2" class="form-control">
+    </div>
+    <input type="submit" class="btn btn-outline-success" value="Regisztráció">
+    <a href="/" class="btn btn-outline-primary">Vissza a bejelentkezéshez</a>
+</form>
+<%- include ('../partials/footer') %> 
