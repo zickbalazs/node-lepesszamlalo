@@ -13,9 +13,11 @@ nav{
     flex-flow:column wrap;
     font-size: 1.5rem;
     width: 25%;
+    height: 100%;
 }
 main{
     width: 75%;
+    height: 100%;
     float:right;
 }
 nav>li>a{

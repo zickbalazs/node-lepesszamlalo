@@ -10,7 +10,7 @@ router.get('/', (req,res)=>{
     })
 })
 router.get('/reg', (req,res)=>{
-    ejs.renderFile('./views/pages/register.ejs', ({data:cfg.config}), (err,data)=>{
+    ejs.renderFile('./views/pages/register.ejs', ({data:cfg.config, errordata:{message:'', type:"danger"}}), (err,data)=>{
         if (err) res.status(500).send(err);
         else res.status(200).send(data);
     })

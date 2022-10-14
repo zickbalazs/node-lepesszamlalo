@@ -14,6 +14,11 @@ const userController = require('./controllers/userController'),
 
 let app = express();
 
+app.locals.message = {
+    message: '',
+    type: 'danger'
+}
+
 app.use(session({secret:'secret',resave:true,saveUninitialized:true}));
 app.use(express.urlencoded({extended:true}));
 app.use('/js', express.static(path.join(__dirname, './web/js/')))

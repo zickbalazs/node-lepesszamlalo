@@ -13,5 +13,4 @@ let config = {
     author: process.env.AUTHOR,
     title: process.env.TITLE
 }
-
 module.exports = {port, pool, config}
