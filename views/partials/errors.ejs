@@ -1,0 +1,9 @@
+<% if (error.message!='') { %>
+    <div class="my-3 alert alert-<%= error.type %> ">
+        <% if (Array.isArray(error.message)) { %>
+            <% for( let i = 0; i < error.message.length; i++ ) { %>
+                <p><%= error.message[i] %></p>
+            <% } %>
+        <% } %>
+    </div> 
+<% } %>

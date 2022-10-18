@@ -1,23 +1,24 @@
-body{
+body, html{
     width: 100%;
     padding: 0;
     margin: 0;
-    
+    height: 100%;   
 }
-
-
-
+.flex{
+    display:flex;
+    flex-flow:row wrap;
+}
 nav{
     display:flex;
     float:left;
     flex-flow:column wrap;
     font-size: 1.5rem;
     width: 25%;
-    height: 100%;
+    min-height: 100%;
 }
 main{
     width: 75%;
-    height: 100%;
+    min-height: 100%;
     float:right;
 }
 nav>li>a{
@@ -33,7 +34,23 @@ nav>li:hover>a{
 }
 nav>li{
     padding-bottom:0.75rem;
+    padding-top: 0.75rem;
     padding-left:0.4rem;
-    background-color: rgb(143, 143, 143);
     transition:background-color 0.2s;
+}
+.logout:hover{
+    background-color:#dc3545;
+}
+.changepasswd:hover{
+    background-color: #ffc107
+}
+@media screen and (max-width:728px) {
+    nav{
+        width: 40%;
+    }
+}
+@media screen and (max-width:480px) {
+    nav{
+        width: 100%;
+    }
 }

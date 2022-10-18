@@ -10,14 +10,12 @@ const port = require('./config').port,
 //controllers
 const userController = require('./controllers/userController'),
       stepController = require('./controllers/stepController'),
-      appController = require('./controllers/appController')
+      appController = require('./controllers/appController');
 
 let app = express();
 
-app.locals.message = {
-    message: '',
-    type: 'danger'
-}
+app.locals.message = '';
+app.locals.type = 'danger';
 
 app.use(session({secret:'secret',resave:true,saveUninitialized:true}));
 app.use(express.urlencoded({extended:true}));
