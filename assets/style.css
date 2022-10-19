@@ -21,13 +21,14 @@ main{
     min-height: 100%;
     float:right;
 }
+li{
+    color:white;
+}
+
 nav>li>a{
     color:white;
     text-decoration: none;
-    transition:color 0.2s;
-}
-nav>li:hover{
-    background-color: white;
+    transition:color 0.1s;
 }
 nav>li:hover>a{
     color:black;
@@ -36,14 +37,13 @@ nav>li{
     padding-bottom:0.75rem;
     padding-top: 0.75rem;
     padding-left:0.4rem;
-    transition:background-color 0.2s;
+    transition:background-color 0.1s;
 }
-.logout:hover{
-    background-color:#dc3545;
-}
-.changepasswd:hover{
-    background-color: #ffc107
-}
+.nohover:hover{background-color: var(--bs-dark);}
+nav>li:hover{background-color: var(--bs-primary);}
+.logout:hover{background-color:var(--bs-danger);}
+.add:hover{background-color: var(--bs-success);}
+.changepasswd:hover{background-color: var(--bs-warning);}
 @media screen and (max-width:728px) {
     nav{
         width: 40%;

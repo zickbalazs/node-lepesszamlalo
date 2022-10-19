@@ -1,16 +1,18 @@
-<form action="">
-
-    <div class="mb-3">
-        <label for="oldP">Old password:</label>
-        <input type="password" name="oldP">
+<form action="/users/passmod" method="post" class="p-3">
+    <h3>Password Change</h3>
+    <div class="p-3">
+        <div class="mb-3">
+            <label class="form-label" for="oldP">Old password:</label>
+            <input class="form-control" type="password" name="oldP">
+        </div>
+        <div class="mb-3">
+            <label for="new" class="form-label">New password:</label>
+            <input type="password" name="new" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="new2" class="form-label">New password again:</label>
+            <input type="password" name="new2" class="form-control">
+        </div>
+        <input type="submit" class="btn btn-outline-primary" value="Change">
     </div>
-    <div class="mb-3">
-        <label for="new" class="form-label">New password:</label>
-        <input type="password" name="new" class="form-control">
-    </div>
-    <div class="mb-3">
-        <label for="new2" class="form-label">New password again:</label>
-        <input type="password" name="new2" class="form-control">
-    </div>
-
 </form>

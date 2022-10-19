@@ -86,12 +86,55 @@ router.post('/reg', (req,res)=>{
 })
 router.get('/passmod', (req,res)=>{
     if (req.session.loggedin){
-        ejs.renderFile('./views/pages/passmod.ejs', ({data:cfg.config, error:{message:req.app.locals.message, type:req.app.locals.type}}), (err, data)=>{
-            if (err) res.status(500).send(err);
-            else res.status(200).send(data);
+        ejs.renderFile('./views/pages/passmod.ejs', ({data:cfg.config, user:req.session, error:{message:req.app.locals.message, type:req.app.locals.type}}), (err, dt)=>{
+            if (err) res.status(500).send(err.message);
+            else res.status(200).send(dt);
         })
     }
     else res.redirect('/');
 })
-
+router.post('/passmod', (req,res)=>{
+    let data = {
+        old:req.body.oldP,
+        new:req.body.new,
+        new2:req.body.new2
+    };
+    if (data.old==null||data.new==null||data.new2==null||data.old=='' || data.new=='' || data.new2==''){
+        req.app.locals.message = 'Empty fields';
+        req.app.locals.type = 'danger';
+        res.redirect('/users/passmod');
+    }
+    if (data.new2!=data.new) {
+        req.app.locals.message = ['New passwords dont match!'];
+        req.app.locals.type = 'danger';
+        res.redirect('/users/passmod');
+    }
+    if (data.new.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)==null){
+        req.app.locals.message = ['The password is weak'];
+        req.app.locals.type='danger';
+        res.redirect('/users/passmod');
+    }
+    else {
+        connection.query('select * from users where id=?', [req.session.loggedid], (err,dt)=>{
+            if (err) res.status(500).send(err.sqlMessage);
+            else {
+                if (sha1(data.old)!=dt[0].passwd) {
+                    req.app.locals.message = ['Old password is incorrect!'];
+                    req.app.locals.type = 'danger';
+                    res.redirect('/users/passmod')
+                }
+                else{
+                    connection.query('update users set passwd=? where id=?', [sha1(data.new), req.session.loggedid], (err,dt)=>{
+                        if (err) res.status(500).send(err.sqlMessage);
+                        else {
+                            req.app.locals.message = ['Password changed'];
+                            req.app.locals.type = 'primary';
+                            res.redirect('/users/passmod');
+                        }
+                    });
+                }
+            }
+        })
+    }
+})
 module.exports = router;
