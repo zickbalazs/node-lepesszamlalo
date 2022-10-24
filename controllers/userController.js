@@ -46,7 +46,7 @@ router.post('/login', (req,res)=>{
             else{
                 req.session.loggeduser = data[0].name;
                 req.session.loggedemail = data[0].email;
-                req.session.loggedid = data[0].id;
+                req.session.loggedid = data[0].ID;
                 req.session.loggedin = true;
                 req.app.locals.message = ['Successful login!'];
                 req.app.locals.type='success';

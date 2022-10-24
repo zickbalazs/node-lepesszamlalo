@@ -1,0 +1,21 @@
+<main class="p-3">
+    <h3 class="p-3">Table view</h3>
+    <table class="table table-border">
+        <thead>
+            <tr>
+                <th>#.</th>
+                <th>Date</th>
+                <th>Steps</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for( let i = 0; i < tabledata.length; i++ ) { %>
+                <tr>
+                    <td><%= i+1 %> </td>
+                    <td><%= tabledata[i].date.toISOString().split('T')[0] %> </td>
+                    <td><%= tabledata[i].stepcount %> </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</main>

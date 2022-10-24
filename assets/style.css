@@ -39,7 +39,8 @@ nav>li{
     padding-left:0.4rem;
     transition:background-color 0.1s;
 }
-.nohover:hover{background-color: var(--bs-dark);}
+.nohover:hover{background-color: var(--bs-dark); }
+.nohover{border-bottom:1px solid white;}
 nav>li:hover{background-color: var(--bs-primary);}
 .logout:hover{background-color:var(--bs-danger);}
 .add:hover{background-color: var(--bs-success);}
