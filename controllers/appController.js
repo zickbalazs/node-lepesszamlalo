@@ -6,8 +6,6 @@ const mysql = require('mysql');
 let connection = mysql.createPool(require('../config').pool);
 
 router.get('/', (req,res)=>{
-    console.log(req.app.locals.message)
-    console.log(req.app.locals.type)
     ejs.renderFile('./views/pages/index.ejs', ({data:cfg.config, error:{message:req.app.locals.message, type:req.app.locals.type}}), (err,data)=>{
         if (err){
             console.log(err);
@@ -31,12 +29,22 @@ router.get('/newdata', (req,res)=>{
     }
     else res.redirect('/')
 })
+router.get('/mod-profile', (req,res)=>{
+    if (req.session.loggedin){
+        ejs.renderFile('./views/pages/mod.ejs', ({data:cfg.config, user:req.session, error:{message:req.app.locals.message,type:req.app.locals.type}}), (err,data)=>{
+            if (err) res.status(500).send(err.message);
+            else res.status(200).send(data);
+        })
+    }
+    else res.redirect('/')
+})
 router.get('/table', (req,res)=>{
     if (req.session.loggedin){
         console.log(req.session.loggedid)
-        let usersData = connection.query('select * from stepdatas where uid=?', [req.session.loggedid], (err,data)=>{
+        connection.query('select * from stepdatas where uid=?', [req.session.loggedid], (err,data)=>{
             if (err) res.status(500).send(err.sqlMessage);
             else{
+                console.log(data)
                 ejs.renderFile('./views/pages/table.ejs', ({data:cfg.config, tabledata:data, user:req.session, error:{message:req.app.locals.message, type:req.app.locals.type}}), (err, data)=>{
                     if (err) res.status(500).send(err.message)
                     else res.status(200).send(data);

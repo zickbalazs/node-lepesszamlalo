@@ -9,13 +9,21 @@
             </tr>
         </thead>
         <tbody>
+            <% let sum = 0; %> 
             <% for( let i = 0; i < tabledata.length; i++ ) { %>
                 <tr>
                     <td><%= i+1 %> </td>
                     <td><%= tabledata[i].date.toISOString().split('T')[0] %> </td>
-                    <td><%= tabledata[i].stepcount %> </td>
+                    <td><%= tabledata[i].amount %> </td>
+                    <% sum+=tabledata[i].amount %> 
                 </tr>
             <% } %>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">Total: <%= tabledata.length %> record(s)</td>
+                <td>Total steps: <%= sum %> </td>
+            </tr>
+        </tfoot>
     </table>
 </main>

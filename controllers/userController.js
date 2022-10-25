@@ -46,7 +46,7 @@ router.post('/login', (req,res)=>{
             else{
                 req.session.loggeduser = data[0].name;
                 req.session.loggedemail = data[0].email;
-                req.session.loggedid = data[0].ID;
+                req.session.loggedid = data[0].id;
                 req.session.loggedin = true;
                 req.app.locals.message = ['Successful login!'];
                 req.app.locals.type='success';
@@ -133,6 +133,24 @@ router.post('/passmod', (req,res)=>{
                         }
                     });
                 }
+            }
+        })
+    }
+})
+router.post('/mod-user', (req,res)=>{
+    if (req.email==''||req.name==''||req.email==null||req.name==null){
+        req.app.locals.message = "Empty fields";
+        req.app.locals.type = "danger";
+        res.redirect('/mod-profile')
+    }
+    else {
+        connection.query('select * from users where email=? or name=?', [req.body.email, req.body.name], (err,data)=>{
+            if (err) res.status(500).send(err.sqlMessage);
+            if (data.length>0) {
+                req.app.locals.message = 'Someone is already registered with these!';
+                req.app.locals.type='danger';
+                console.log(data)
+                res.redirect('/mod-pofile')
             }
         })
     }
