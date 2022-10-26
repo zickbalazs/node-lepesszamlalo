@@ -46,7 +46,7 @@ router.post('/login', (req,res)=>{
             else{
                 req.session.loggeduser = data[0].name;
                 req.session.loggedemail = data[0].email;
-                req.session.loggedid = data[0].id;
+                req.session.loggedid = data[0].ID;
                 req.session.loggedin = true;
                 req.app.locals.message = ['Successful login!'];
                 req.app.locals.type='success';
@@ -138,19 +138,44 @@ router.post('/passmod', (req,res)=>{
     }
 })
 router.post('/mod-user', (req,res)=>{
-    if (req.email==''||req.name==''||req.email==null||req.name==null){
-        req.app.locals.message = "Empty fields";
+    if (req.body.email==''||req.body.name==''||req.body.email==null||req.body.name==null){
+        req.app.locals.message = ["Empty fields"];
         req.app.locals.type = "danger";
         res.redirect('/mod-profile')
     }
     else {
-        connection.query('select * from users where email=? or name=?', [req.body.email, req.body.name], (err,data)=>{
+        connection.query('select * from users where email=?', [req.body.email], (err,data)=>{
             if (err) res.status(500).send(err.sqlMessage);
             if (data.length>0) {
-                req.app.locals.message = 'Someone is already registered with these!';
-                req.app.locals.type='danger';
-                console.log(data)
-                res.redirect('/mod-pofile')
+                if (req.session.loggedemail==data[0].email){
+                    connection.query('update users set name=?, email=? where ID=?', [req.body.name, req.body.email, req.session.loggedid], (err)=>{
+                        if (err) res.status(500).send(err.sqlMessage);
+                        else {
+                            req.app.locals.message = ['Successful modification!'];
+                            req.app.locals.type='success';
+                            req.session.loggedemail = req.body.email;
+                            req.session.loggeduser = req.body.name;
+                            res.redirect('/mod-profile');
+                        }
+                    })
+                }
+                else{
+                    req.app.locals.message = ['Someone is already registered with these!'];
+                    req.app.locals.type='danger';
+                    res.redirect('/mod-profile')
+                }
+            }
+            else {
+                connection.query('update users set name=?, email=? where ID=?', [req.body.name, req.body.email, req.session.loggedid], (err)=>{
+                    if (err) res.status(500).send(err.sqlMessage);
+                    else {
+                        req.app.locals.message = ['Successful modification!'];
+                        req.app.locals.type='success';
+                        req.session.loggedemail = req.body.email;
+                        req.session.loggeduser = req.body.name;
+                        res.redirect('/mod-profile');
+                    }
+                })
             }
         })
     }

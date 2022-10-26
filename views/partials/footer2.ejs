@@ -1,0 +1,48 @@
+<% let datas = [];
+    records.forEach(e=>{
+        datas.push({
+            x: new Date(e.date),
+            y: e.stepcount
+        });
+    })
+
+%> 
+
+
+<footer class="bg-secondary text-light text-center py-2 w-100">
+    <h6><%= data.company %> </h6>
+    <p class="py-0 my-0"><%= data.author %> </p>
+</footer>
+</div>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/canvasjs.min.js"></script>
+<script>
+
+
+    window.onload = function () {
+    CanvasJS.addColorSet("cset", [
+        "#0d6efd"
+    ]);
+	var chart = new CanvasJS.Chart("chartContainer", {
+		title:{
+			text: "Your Steps"
+		},
+        colorSet: "cset",
+        animationEnabled: true,
+        theme: 'light2',
+		data: [              
+		{
+			// Change type to "doughnut", "line", "splineArea", etc.
+			type: "spline",
+			dataPoints: [
+            <% for (let i = 0; i < datas.length; i++){ %>
+                <%- `{x: new Date( ${"\"" + (datas[i].x.toISOString().split('T')[0]+ "\"")}), y:${datas[i].y}},`  %>
+            <% } %>]
+		}
+		]
+	});
+	chart.render();
+}
+</script>
+</body>
+</html>

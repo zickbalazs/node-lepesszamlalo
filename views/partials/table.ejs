@@ -1,29 +1,37 @@
 <main class="p-3">
     <h3 class="p-3">Table view</h3>
-    <table class="table table-border">
-        <thead>
-            <tr>
-                <th>#.</th>
-                <th>Date</th>
-                <th>Steps</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% let sum = 0; %> 
-            <% for( let i = 0; i < tabledata.length; i++ ) { %>
+    <% if (tabledata.length>0) { %>
+        <table class="table table-border">
+            <thead>
                 <tr>
-                    <td><%= i+1 %> </td>
-                    <td><%= tabledata[i].date.toISOString().split('T')[0] %> </td>
-                    <td><%= tabledata[i].amount %> </td>
-                    <% sum+=tabledata[i].amount %> 
+                    <th>#.</th>
+                    <th>Date</th>
+                    <th>Steps</th>
                 </tr>
-            <% } %>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="2">Total: <%= tabledata.length %> record(s)</td>
-                <td>Total steps: <%= sum %> </td>
-            </tr>
-        </tfoot>
-    </table>
+            </thead>
+            <tbody>
+                <% let sum = 0; %> 
+                <% for( let i = 0; i < tabledata.length; i++ ) { %>
+                    <tr>
+                        <td><%= i+1 %> </td>
+                        <td><%= tabledata[i].date.toISOString().split('T')[0] %> </td>
+                        <td><%= tabledata[i].stepcount %> </td>
+                        <% sum+=tabledata[i].stepcount %> 
+                    </tr>
+                <% } %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">Total: <%= tabledata.length %> record(s)</td>
+                    <td>Total steps: <%= sum %> </td>
+                </tr>
+            </tfoot>
+        </table> 
+    <% } %>
+    <% if (tabledata.length<=0) { %>
+        <div class="py-5">
+            <h2 class="text-center text-danger fs-1">No step data!</h2>
+            <h3 class="text-center text-muted fs-3">You can add data <a href="/newdata">here.</a></h3>
+        </div>
+    <% } %>
 </main>
